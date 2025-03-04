@@ -16,7 +16,7 @@ async function fetchDocuments(nit: string) {
 }
 
 export default async function ResponsiveImage({ params }: Params) {
-  const nit = await params.nit; // Desestructuración asíncrona para evitar el acceso directo
+  const nit = params.nit; // Desestructuración asíncrona para evitar el acceso directo
   const documents = await fetchDocuments(nit);
 
   return (
