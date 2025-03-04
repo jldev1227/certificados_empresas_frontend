@@ -1,9 +1,9 @@
 import Image from "next/image";
 import axios from "axios";
 
-interface Params {
+type PageProps = {
   params: { nit: string };
-}
+};
 
 async function fetchDocuments(nit: string) {
   try {
@@ -15,19 +15,14 @@ async function fetchDocuments(nit: string) {
   }
 }
 
-export default async function ResponsiveImage({ params }: Params) {
-  const nit = params.nit; // Desestructuración asíncrona para evitar el acceso directo
+export default async function ResponsiveImage({ params }: PageProps) {
+  const nit = params.nit; // ✅ Ya no hay que hacer `await params.nit`
   const documents = await fetchDocuments(nit);
 
   return (
     <div className="flex flex-col sm:bg-[url('/background2.svg')] bg-cover bg-center sm:p-10 gap-16">
       <div className="flex justify-center items-center">
-        <Image
-          src="/CodyBannerIzq.png"
-          width={200}
-          height={200}
-          alt="Cody - Mascota de Transmeralda"
-        />
+        <Image src="/CodyBannerIzq.png" width={200} height={200} alt="Cody - Mascota de Transmeralda" />
       </div>
       <div className="space-y-10 flex-col items-center bg-white rounded-xl shadow-xl p-4 md:p-10">
         <h2 className="text-lg font-semibold text-center">Documentos de la empresa con NIT: {nit}</h2>
@@ -36,13 +31,7 @@ export default async function ResponsiveImage({ params }: Params) {
             documents.map((doc: { nombre: string; url: string }, index: number) => (
               <li key={index} className="text-blue-500 underline shadow-sm border border-gray-200 p-4 rounded-md">
                 <a className="flex items-center gap-5 max-sm:text-xs" href={doc.url} target="_blank" rel="noopener noreferrer">
-                  <img
-                    src="/pdf_icon.png"
-                    width={48}
-                    height={48}
-                    className="w-[32] h-[32] md:w-[48px] md:h-[48px]"
-                    alt="Icono de archivo"
-                  />
+                  <Image src="/pdf_icon.png" width={48} height={48} alt="Icono de archivo" />
                   {doc.nombre}
                 </a>
               </li>
@@ -55,3 +44,4 @@ export default async function ResponsiveImage({ params }: Params) {
     </div>
   );
 }
+
