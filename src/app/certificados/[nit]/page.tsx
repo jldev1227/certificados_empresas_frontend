@@ -1,9 +1,13 @@
 import Image from "next/image";
 import axios from "axios";
+import { Metadata } from "next";
 
-interface PageProps {
-  params: { nit: string };
+export interface PageProps {
+  params: {
+    nit: string;
+  };
 }
+
 
 async function fetchDocuments(nit: string) {
   try {
@@ -16,7 +20,7 @@ async function fetchDocuments(nit: string) {
 }
 
 export default async function ResponsiveImage({ params }: PageProps) {
-  const nit = params.nit; // ✅ Ya no hay que hacer `await params.nit`
+  const { nit } = params; // ✅ Corrección: Ahora `nit` es un string sin `await`
   const documents = await fetchDocuments(nit);
 
   return (
@@ -44,3 +48,4 @@ export default async function ResponsiveImage({ params }: PageProps) {
     </div>
   );
 }
+
