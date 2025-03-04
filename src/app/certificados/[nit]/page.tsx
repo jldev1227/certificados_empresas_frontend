@@ -1,9 +1,9 @@
 import Image from "next/image";
 import axios from "axios";
 
-type PageProps = {
+interface PageProps {
   params: { nit: string };
-};
+}
 
 async function fetchDocuments(nit: string) {
   try {
@@ -44,4 +44,3 @@ export default async function ResponsiveImage({ params }: PageProps) {
     </div>
   );
 }
-
